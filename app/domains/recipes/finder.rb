@@ -17,6 +17,9 @@ module Recipes
       success = false
       errors = []
 
+      Recipe.search_by_ingredients(@ingredients).last(5)
+
+
       OpenStruct.new(result: result, success?: success, errors: errors)
     end
   end
