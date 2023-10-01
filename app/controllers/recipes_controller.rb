@@ -4,7 +4,12 @@ class RecipesController < ApplicationController
     @recipes = []
     command = Recipes::Finder.call(filters:recipes_parameters)
     return render(status: :not_found) unless command.success?
-    @recipes = command.result
+    @recipes = command.result #.paginate(:page => params[:page]).order('id DESC')
+  end
+
+  def show
+    @recipe = Recipe.find(params[:id])
+    render :show
   end
 
   private

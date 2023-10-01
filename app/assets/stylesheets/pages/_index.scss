@@ -32,3 +32,8 @@
 .card-product .card-product-infos {
   padding: 16px;
 }
+
+.card-product a:link, .card-product a:hover, .card-product a:visited, .card-product a:active {
+  text-decoration: none;
+  color: black;
+}

@@ -1,0 +1,19 @@
+<div class="card-trip" style="display: flex;">
+  <div class="card-trip-infos">
+    <div>
+      <h2><%= @recipe.name %></h2>
+      <p>- <%= @recipe.ingredients.join("<br>- ").html_safe %></p>
+    </div>
+    <h2 class="card-trip-pricing">Total time : <%= @recipe.total_time %></h2>
+    Rate : <%  @recipe.rate.to_i.times do  %>
+      *
+    <% end %>
+  </div>
+  <div class="card-trip-image">
+    <% if @recipe.image.present? %>
+      <%= image_tag(@recipe.image, style: "height: 300px;") %>
+    <% else %>
+      <%= image_tag("https://icon-library.com/images/recipe-icon/recipe-icon-0.jpg", style:"height: 300px;") %>
+    <% end %>
+  </div>
+</div>
