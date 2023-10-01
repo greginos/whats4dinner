@@ -1,16 +1,16 @@
 class RecipesController < ApplicationController
   before_action :validate_search_params, only: :search
-  def search
-    command = Recipes::Finder.call(filters: recipes_parameters)
+  def index
+    @recipes = []
+    command = Recipes::Finder.call(filters:recipes_parameters)
     return render(status: :not_found) unless command.success?
-
-    render(status: :ok, body: command.result)
+    @recipes = command.result
   end
 
   private
 
   def recipes_parameters
-    params.require(:recipes)
+    params.permit(:ingredients, :commit)
   end
 
   def validate_search_params

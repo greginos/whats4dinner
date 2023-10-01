@@ -13,12 +13,10 @@ module Recipes
     end
 
     def call
-      result = nil
-      success = false
       errors = []
 
-      Recipe.search_by_ingredients(@ingredients).last(5)
-
+      result = Recipe.search_by_ingredients(@ingredients)
+      success = result.present?
 
       OpenStruct.new(result: result, success?: success, errors: errors)
     end
