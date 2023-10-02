@@ -1,9 +1,9 @@
-# fly.toml app configuration file generated for frosty-smoke-3846 on 2023-10-01T22:51:02+02:00
+# fly.toml app configuration file generated for greg-courtois-recipes on 2023-10-02T13:23:18+02:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = "frosty-smoke-3846"
+app = "greg-courtois-recipes"
 primary_region = "cdg"
 console_command = "/rails/bin/rails console"
 
