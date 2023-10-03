@@ -113,6 +113,8 @@ GEM
     ffi (1.16.2)
     font-awesome-sass (6.4.2)
       sassc (~> 2.0)
+    fuzzily (0.3.3)
+      activerecord (>= 2.3.17)
     globalid (1.2.1)
       activesupport (>= 6.1)
     i18n (1.14.1)
@@ -287,6 +289,7 @@ DEPENDENCIES
   dockerfile-rails (>= 1.5)
   dotenv-rails
   font-awesome-sass (~> 6.1)
+  fuzzily
   importmap-rails
   jbuilder
   jsonl

@@ -59,6 +59,9 @@ gem 'jsonl'
 # query values with part of text
 gem 'pg_search'
 
+# fuzzy search (allow mispelling)
+gem 'fuzzily'
+
 # paginate results
 gem 'will_paginate', '~> 3.3.0'
 

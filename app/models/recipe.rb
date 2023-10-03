@@ -6,6 +6,11 @@ class Recipe < ApplicationRecord
                     name: "A",
                     ingredients: "B",
                   },
+                  using: { tsearch: {
+                    dictionary: 'french',
+                    tsvector_column: "tsv",
+                  }
+                  },
                   ignoring: :accents,
                   :order_within_rank => "rate DESC")
 end
