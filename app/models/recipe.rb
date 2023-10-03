@@ -9,6 +9,7 @@ class Recipe < ApplicationRecord
                   using: { tsearch: {
                     dictionary: 'french',
                     tsvector_column: "tsv",
+                    negation: true
                   }
                   },
                   ignoring: :accents,
