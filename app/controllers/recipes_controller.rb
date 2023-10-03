@@ -2,9 +2,10 @@ class RecipesController < ApplicationController
   before_action :validate_search_params, only: :search
   def index
     @recipes = []
-    command = Recipes::Finder.call(filters:recipes_parameters)
-    return render(status: :not_found) unless command.success?
-    @recipes = command.result #.paginate(:page => params[:page]).order('id DESC')
+    @query = []
+    Recipes::Finder.call(filters:recipes_parameters)
+    @query = recipes_parameters[:ingredients]
+    @recipes = command.result
   end
 
   def show

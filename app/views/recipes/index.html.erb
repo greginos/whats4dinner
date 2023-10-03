@@ -2,35 +2,37 @@
   <div>
     <%= form_tag(recipes_path, method: :get) do %>
       <%= label :query, "Ingredients :" %>
-      <%= text_field_tag :ingredients %>
+      <%= text_field_tag :ingredients, nil, placeholder: @query ? @query : '' %>
       <%= submit_tag "Search" %>
     <% end %>
   </div>
 </div>
-<div class="container">
-  <% if @recipes.present? %>
-    <% @recipes&.each do |recipe| %>
-      <div class="movie_card" id="bright">
-        <div class="info_section">
-          <div class="movie_header">
-            <% if recipe.image.present? %>
-            <%= image_tag(recipe.image, class: "locandina")  %>
-            <% else %>
-            <%= image_tag("https://food.unl.edu/newsletters/images/mise-en-plase.jpg", class: "locandina") %>
-            <% end %>
-            <h1><%= link_to(recipe.name, recipe_path(recipe.id)) %></h1>
-            <h4><%= recipe.budget %></h4>
-            <span class="minutes"><%= recipe.total_time %></span>
-            <p class="type"> <%= recipe.tags.join(', ') %></p>
+<% if @query.present? %>
+  <div class="container">
+    <% if @recipes.present? %>
+      <% @recipes&.each do |recipe| %>
+        <div class="movie_card" id="bright">
+          <div class="info_section">
+            <div class="movie_header">
+              <% if recipe.image.present? %>
+                <%= image_tag(recipe.image, class: "locandina")  %>
+              <% else %>
+                <%= image_tag("https://food.unl.edu/newsletters/images/mise-en-plase.jpg", class: "locandina") %>
+              <% end %>
+              <h1><%= link_to(recipe.name, recipe_path(recipe.id)) %></h1>
+              <h4><%= recipe.budget %></h4>
+              <span class="minutes"><%= recipe.total_time %></span>
+              <p class="type"> <%= recipe.tags.join(', ') %></p>
+            </div>
           </div>
+          <div class="blur_back" style="background: url(<%= recipe.image.present? ? recipe.image : "https://food.unl.edu/newsletters/images/mise-en-plase.jpg" %>)"></div>
         </div>
-        <div class="blur_back" style="background: url(<%= recipe.image.present? ? recipe.image : "https://food.unl.edu/newsletters/images/mise-en-plase.jpg" %>)"></div>
+      <% end %>
+    <% else %>
+      <div class="product__info">
+        <p>    Désolé, pas de recettes pour cet ingrédient</p>
       </div>
     <% end %>
-  <% else %>
-    <div class="product__info">
-      <p>    Désolé, pas de recettes pour cet ingrédient</p>
-    </div>
-  <% end %>
-</div>
+  </div>
+<% end %>
 
