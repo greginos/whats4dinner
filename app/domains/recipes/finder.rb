@@ -15,7 +15,7 @@ module Recipes
     def call
       errors = []
 
-      result = Recipe.search_by_ingredients(@ingredients.gsub('-','!'))
+      result = Recipe.search_by_ingredients(@ingredients&.gsub('-','!')).first(25)
       success = result.present?
 
       OpenStruct.new(result: result, success?: success, errors: errors)
