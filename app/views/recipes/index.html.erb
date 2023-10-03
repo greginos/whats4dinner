@@ -2,7 +2,7 @@
   <div>
     <%= form_tag(recipes_path, method: :get) do %>
       <%= label :query, "Ingredients :" %>
-      <%= text_field_tag :ingredients, nil, placeholder: @query ? @query : '' %>
+      <%= text_field_tag :ingredients, nil, value: @query ? @query : '' %>
       <%= submit_tag "Search" %>
     <% end %>
   </div>
