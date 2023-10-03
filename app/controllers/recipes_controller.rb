@@ -3,9 +3,9 @@ class RecipesController < ApplicationController
   def index
     @recipes = []
     @query = []
-    Recipes::Finder.call(filters:recipes_parameters)
+    command = Recipes::Finder.call(filters:recipes_parameters)
     @query = recipes_parameters[:ingredients]
-    @recipes = command.result
+    @recipes = command.result if command.success?
   end
 
   def show
