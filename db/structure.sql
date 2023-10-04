@@ -10,10 +10,17 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- Name: public; Type: SCHEMA; Schema: -; Owner: -
+-- Name: pg_trgm; Type: EXTENSION; Schema: -; Owner: -
 --
 
--- *not* creating schema, since initdb creates it
+CREATE EXTENSION IF NOT EXISTS pg_trgm WITH SCHEMA public;
+
+
+--
+-- Name: EXTENSION pg_trgm; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON EXTENSION pg_trgm IS 'text similarity measurement and index searching based on trigrams';
 
 
 --
@@ -67,7 +74,9 @@ CREATE TABLE public.recipes (
     author character varying,
     people_quantity integer,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    flat_ingredients character varying,
+    tsv tsvector
 );
 
 
@@ -166,6 +175,20 @@ CREATE INDEX index_recipes_on_tags ON public.recipes USING btree (tags);
 
 
 --
+-- Name: index_recipes_on_tsv; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_recipes_on_tsv ON public.recipes USING gin (tsv);
+
+
+--
+-- Name: recipes tsvectorupdate; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER tsvectorupdate BEFORE INSERT OR UPDATE ON public.recipes FOR EACH ROW EXECUTE FUNCTION tsvector_update_trigger('tsv', 'pg_catalog.french', 'name', 'flat_ingredients');
+
+
+--
 -- PostgreSQL database dump complete
 --
 
@@ -173,6 +196,9 @@ SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
 ('20230930125951'),
-('20230930193350');
+('20230930193350'),
+('20230930194107'),
+('20231002204440'),
+('20231002211316');
 
 
