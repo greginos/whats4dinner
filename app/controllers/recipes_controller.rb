@@ -1,11 +1,12 @@
 class RecipesController < ApplicationController
-  before_action :validate_search_params, only: :search
   def index
     @recipes = []
     @query = []
-    command = Recipes::Finder.call(filters:recipes_parameters)
-    @query = recipes_parameters[:ingredients]
-    @recipes = command.result if command.success?
+    if params[:ingredients]
+      command = Recipes::Finder.call(filters: recipe_params.slice(:ingredients).to_h)
+      @query = params[:ingredients]
+      @recipes = command.result if command.success?
+    end
   end
 
   def show
@@ -14,12 +15,7 @@ class RecipesController < ApplicationController
   end
 
   private
-
-  def recipes_parameters
+  def recipe_params
     params.permit(:ingredients, :commit)
-  end
-
-  def validate_search_params
-    head :bad_request unless recipes_parameters[:ingredients].compact_blank.any?
   end
 end

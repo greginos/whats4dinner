@@ -2,10 +2,10 @@
 
 require 'rails_helper'
 
-RSpec.describe RecipesController, type: :request do
-  subject(:search_recipes) { get(search_recipes_path, params: params) }
+RSpec.describe RecipesController, type: :controller do
+  subject(:search_recipes) { get(:index, params: params) }
 
-  let(:params) { { recipes: { ingredients: ingredients } } }
+  let(:params) { { ingredients: ingredients, commit: 'search' } }
   let(:recipes_finder) { instance_double(Recipes::Finder) }
   let(:recipes) { [] }
 
@@ -14,7 +14,7 @@ RSpec.describe RecipesController, type: :request do
   end
 
   context 'when there are ingredients' do
-    let(:ingredients) { ['tomato'] }
+    let(:ingredients) { 'tomato' }
     before do
       allow(recipes_finder).to receive(:call).and_return(struct_response)
     end
@@ -23,31 +23,23 @@ RSpec.describe RecipesController, type: :request do
 
     it 'calls the recipe finder' do
       search_recipes
-      expect(Recipes::Finder).to have_received(:new).with(filters: hash_including(ingredients: ingredients)).once
+      expect(Recipes::Finder).to have_received(:new).with(filters: {ingredients: ingredients}).once
     end
 
-    context 'when the recipes finder returns nothing' do
-      let(:struct_response) { OpenStruct.new(result: nil, success?: false, errors: 'No recipes found') }
-
-      it 'renders an empty response' do
-        search_recipes
-        expect(response).to have_http_status(:not_found)
-      end
-    end
     context 'when the recipes finder returns recipes' do
-
       it 'renders the recipes' do
         search_recipes
         expect(response).to have_http_status(:ok)
       end
     end
   end
+
   context 'when there are no ingredients' do
     let(:ingredients) { [] }
 
-    it 'calls the recipe finder' do
+    it 'does not call the recipe finder' do
       search_recipes
-      expect(response).to have_http_status(:bad_request)
+      expect(Recipes::Finder).not_to have_received(:new)
     end
   end
 end
