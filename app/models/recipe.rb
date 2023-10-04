@@ -1,6 +1,5 @@
 class Recipe < ApplicationRecord
   include PgSearch::Model
-  # self.per_page = 10
   pg_search_scope(:search_by_ingredients,
                   against: {
                     name: "A",
@@ -14,4 +13,10 @@ class Recipe < ApplicationRecord
                   },
                   ignoring: :accents,
                   :order_within_rank => "rate DESC")
+
+  before_create :fill_flat_ingredients
+
+  def fill_flat_ingredients
+    self.flat_ingredients = ingredients
+  end
 end
