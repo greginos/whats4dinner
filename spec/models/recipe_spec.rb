@@ -24,7 +24,7 @@ RSpec.describe 'Recipe', type: :model do
         it 'returns the right recipes' do
           expect(search).to match_array([recipe_tomato])
         end
-        end
+      end
 
       context 'when removing ingredients' do
         let(:ingredients) { 'tomate !fromage' }
