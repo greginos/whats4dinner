@@ -1,9 +1,9 @@
 <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url( https://news.uchicago.edu/sites/default/files/styles/full_width/public/images/2018-12/shutterstock_427193719_0.jpg?itok=e3RwipKT)">
   <div>
     <%= form_tag(recipes_path, method: :get) do %>
-      <%= label :query, "Ingredients :" %>
+      <%= label :query, "Ingrédients :" %>
       <%= text_field_tag :ingredients, nil, value: @query ? @query : '' %>
-      <%= submit_tag "Search" %>
+      <%= submit_tag "Recherche" %>
     <% end %>
   </div>
 </div>
