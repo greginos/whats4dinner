@@ -29,8 +29,14 @@
         </div>
       <% end %>
     <% else %>
-      <div class="product__info">
-        <p>    Désolé, pas de recettes pour cet ingrédient</p>
+      <div class="movie_card" id="bright">
+        <div class="info_section">
+          <div class="movie_header">
+            <h1> Désolé, pas de recettes trouvées pour "<%=@query %>"</h1>
+            <h4> Merci de réessayer avec d'autres ingrédients</h4>
+          </div>
+        </div>
+        <div class="blur_back" style="background: url('https://food.unl.edu/newsletters/images/mise-en-plase.jpg')"></div>
       </div>
     <% end %>
   </div>
