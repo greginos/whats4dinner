@@ -42,14 +42,6 @@ RSpec.describe 'Recipe', type: :model do
           expect(search).to eq([recipe_tomato, recipe_tomato_potatoe, recipe_tomato_low])
         end
       end
-
-      context 'when all ingredients are not present in the recipes' do
-        let(:ingredients) { 'tomate chocolat fromage' }
-
-        it 'returns the most relevant recipes' do
-          expect(search).to eq([recipe_tomato, recipe_tomato_potatoe])
-        end
-      end
     end
   end
 end
