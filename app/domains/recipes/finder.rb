@@ -14,15 +14,13 @@ module Recipes
     end
 
     def call
-      errors = []
-
       result = Recipe.search_by_ingredients(@ingredients).first(NUMBER_OF_RECIPES_TO_RETURN)
-      if result.empty?
+      if result.empty? && @ingredients.split.size > 1
         result = Recipe.iterate_on_ingredients(@ingredients, NUMBER_OF_RECIPES_TO_RETURN)
       end
       success = result.present?
 
-      OpenStruct.new(result: result, success?: success, errors: errors)
+      OpenStruct.new(result: result, success?: success)
     end
   end
 end
